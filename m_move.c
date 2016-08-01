@@ -1,6 +1,9 @@
 // m_move.c -- monster movement
 
 #include "g_local.h"
+#if __STDC_VERSION__ >= 199901L
+#include <tgmath.h>
+#endif
 
 #define STEPSIZE        18
 
@@ -422,7 +425,7 @@ void SV_NewChaseDir (edict_t *actor, edict_t *enemy, float dist)
         }
 
 // try other directions
-        if ( ((rand()&3) & 1) ||  abs(deltay)>abs(deltax))
+        if ( ((rand()&3) & 1) ||  fabs(deltay)>fabs(deltax))
         {
                 tdir=d[1];
                 d[1]=d[2];

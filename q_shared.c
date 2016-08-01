@@ -1,4 +1,7 @@
 #include "q_shared.h"
+#if __STDC_VERSION__ >= 199901L
+#include <tgmath.h>
+#endif
 
 #define DEG2RAD( a ) ( a * M_PI ) / 180.0F
 
@@ -738,8 +741,6 @@ void CrossProduct (vec3_t v1, vec3_t v2, vec3_t cross)
         cross[1] = v1[2]*v2[0] - v1[0]*v2[2];
         cross[2] = v1[0]*v2[1] - v1[1]*v2[0];
 }
-
-double sqrt(double x);
 
 vec_t VectorLength(vec3_t v)
 {

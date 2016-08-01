@@ -2,6 +2,9 @@
 
 #include "g_local.h"
 #include "cgf_sfx_glass.h"
+#if __STDC_VERSION__ >= 199901L
+#include <tgmath.h>
+#endif
 
 /*
 

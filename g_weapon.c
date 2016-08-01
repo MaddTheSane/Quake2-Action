@@ -1,6 +1,9 @@
 #include "g_local.h"
 #include "cgf_sfx_glass.h"
 #include "a_game.h" //zucc for KickDoor
+#if __STDC_VERSION__ >= 199901L
+#include <tgmath.h>
+#endif
 
 
 void knife_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf);

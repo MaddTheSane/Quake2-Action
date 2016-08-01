@@ -2,6 +2,9 @@
 
 #include "g_local.h"
 #include "m_player.h"
+#if __STDC_VERSION__ >= 199901L
+#include <tgmath.h>
+#endif
 
 
 static qboolean is_quad;
@@ -985,7 +988,7 @@ void Drop_Weapon (edict_t *ent, gitem_t *item)
         {
                     if ( (ent->client->pers.weapon == item  ) && (ent->client->pers.inventory[index] == 1) )
                 {
-                                                if ( (ent->client->ps.gunframe >= GRENADE_IDLE_FIRST) && (ent->client->ps.gunframe <= GRENADE_IDLE_LAST) 
+                                                if ( ((ent->client->ps.gunframe >= GRENADE_IDLE_FIRST) && (ent->client->ps.gunframe <= GRENADE_IDLE_LAST))
                                                                                                         || ( ent->client->ps.gunframe >= GRENADE_THROW_FIRST && ent->client->ps.gunframe <= GRENADE_THROW_LAST) ) 
                                                 {
                                                         ent->client->ps.gunframe = 0;
@@ -2968,7 +2971,7 @@ void Pistol_Fire(edict_t *ent)
 
 //      gi.cprintf(ent, PRINT_HIGH, "Spread is %d\n", spread);
 
-        if ((ent->client->mk23_rds == 1))
+        if (ent->client->mk23_rds == 1)
         {
                 //Hard coded for reload only.
                 ent->client->ps.gunframe=62;

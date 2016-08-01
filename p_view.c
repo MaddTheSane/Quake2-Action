@@ -1,5 +1,8 @@
 #include "g_local.h"
 #include "m_player.h"
+#if __STDC_VERSION__ >= 199901L
+#include <tgmath.h>
+#endif
 
 
 

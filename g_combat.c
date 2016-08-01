@@ -2,6 +2,9 @@
 
 #include "g_local.h"
 #include "cgf_sfx_glass.h"
+#if __STDC_VERSION__ >= 199901L
+#include <tgmath.h>
+#endif
 
 void Add_TeamWound( edict_t *attacker, edict_t *victim, int mod);
 
@@ -568,9 +571,9 @@ void VerifyHeadShot( vec3_t point, vec3_t dir, float height, vec3_t newpoint)
 // zucc adding location hit code
 // location hit code based off ideas by pyromage and shockman
 
-#define LEG_DAMAGE (height/2.2) - abs(targ->mins[2]) - 3 
-#define STOMACH_DAMAGE (height/1.8) - abs(targ->mins[2]) 
-#define CHEST_DAMAGE (height/1.4) - abs(targ->mins[2]) 
+#define LEG_DAMAGE (height/2.2) - fabs(targ->mins[2]) - 3
+#define STOMACH_DAMAGE (height/1.8) - fabs(targ->mins[2])
+#define CHEST_DAMAGE (height/1.4) - fabs(targ->mins[2])
 
 #define HEAD_HEIGHT 12.0
 qboolean IsFemale (edict_t *ent);
@@ -638,7 +641,7 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
         if (targ_maxs2 == 4)
                 targ_maxs2 = CROUCHING_MAXS2; //FB 6/1/99
         
-        height = abs(targ->mins[2]) + targ_maxs2; 
+        height = fabs(targ->mins[2]) + targ_maxs2;
         
         // locational damage code
         // base damage is head shot damage, so all the scaling is downwards
@@ -697,8 +700,8 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
                                         //gi.cprintf(attacker, PRINT_HIGH, "z: %d y: %d x: %d\n", (int)(targ_maxs2 - new_point[2]),(int)(new_point[1]) , (int)(new_point[0]) );
                                         
                                         if ( (targ_maxs2 - new_point[2]) < HEAD_HEIGHT 
-                                                && (abs(new_point[1])) < HEAD_HEIGHT*.8 
-                                                && (abs(new_point[0])) < HEAD_HEIGHT*.8 )
+                                                && (fabs(new_point[1])) < HEAD_HEIGHT*.8
+                                                && (fabs(new_point[0])) < HEAD_HEIGHT*.8 )
                                                 
                                         {
                                                 head_success = 1;

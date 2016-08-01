@@ -1,5 +1,8 @@
 
 #include "g_local.h"
+#if __STDC_VERSION__ >= 199901L
+#include <tgmath.h>
+#endif
 
 typedef struct
 {
