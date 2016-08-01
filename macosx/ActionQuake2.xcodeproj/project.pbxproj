@@ -63,7 +63,7 @@
 		D22A7BA609F4272600FC9B21 /* g_local.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = g_local.h; sourceTree = "<group>"; };
 		D22A7BA709F4272600FC9B21 /* g_main.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = g_main.c; sourceTree = "<group>"; };
 		D22A7BA809F4272600FC9B21 /* g_misc.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = g_misc.c; sourceTree = "<group>"; };
-		D22A7BA909F4272600FC9B21 /* g_monster.c */ = {isa = PBXFileReference; fileEncoding = 30; indentWidth = 8; lastKnownFileType = sourcecode.c.c; path = g_monster.c; sourceTree = "<group>"; };
+		D22A7BA909F4272600FC9B21 /* g_monster.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = g_monster.c; sourceTree = "<group>"; };
 		D22A7BAA09F4272600FC9B21 /* g_phys.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = g_phys.c; sourceTree = "<group>"; };
 		D22A7BAB09F4272600FC9B21 /* g_save.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = g_save.c; sourceTree = "<group>"; };
 		D22A7BAC09F4272600FC9B21 /* g_spawn.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = g_spawn.c; sourceTree = "<group>"; };
