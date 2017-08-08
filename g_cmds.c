@@ -1042,7 +1042,7 @@ void Cmd_Say_f (edict_t *ent, qboolean team, qboolean arg0, qboolean partner_msg
                         ent->client->pers.netname);
 	}
 
-        offset_of_text = strlen(text);  //FB 5/31/99
+        offset_of_text = (int)strlen(text);  //FB 5/31/99
         
         if (arg0)
         {

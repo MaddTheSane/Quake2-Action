@@ -334,7 +334,7 @@ char *TeamName(int team)
 
 void AssignSkin(edict_t *ent, char *s)
 {
-        int playernum = ent-g_edicts-1;
+        int playernum = (int)(ent-g_edicts-1);
 
         switch (ent->client->resp.team)
         {
@@ -831,7 +831,7 @@ edict_t *FindOverlap(edict_t *ent, edict_t *last_overlap)
         edict_t *other;
         vec3_t diff;
 
-        for (i = last_overlap ? last_overlap - g_edicts : 0; i < game.maxclients; i++)
+        for (i = (int)(last_overlap ? last_overlap - g_edicts : 0); i < game.maxclients; i++)
         {
                 other = &g_edicts[i+1];
 
@@ -1142,10 +1142,10 @@ void A_ScoreboardMessage (edict_t *ent, edict_t *killer)
                 // correctly in 320x240 (Action's does not)--any problems with this?  -FB
                 // Also going to center the team names.
 
-                name_pos[TEAM1] = ((20 - strlen(team1_name)) / 2) * 8;
+                name_pos[TEAM1] = (int)(((20 - strlen(team1_name)) / 2) * 8);
                 if (name_pos[TEAM1] < 0)
                         name_pos[TEAM1] = 0;
-                name_pos[TEAM2] = ((20 - strlen(team2_name)) / 2) * 8;
+                name_pos[TEAM2] = (int)(((20 - strlen(team2_name)) / 2) * 8);
                 if (name_pos[TEAM2] < 0)
                         name_pos[TEAM2] = 0;
 
@@ -1165,7 +1165,7 @@ void A_ScoreboardMessage (edict_t *ent, edict_t *killer)
                         totalscore[TEAM1], total[TEAM1], name_pos[TEAM1], team1_name,
                         totalscore[TEAM2], total[TEAM2], name_pos[TEAM2] + 160, team2_name);
         
-                len = strlen(string);
+                len = (int)strlen(string);
 
                 totalaliveprinted[TEAM1] = totalaliveprinted[TEAM2] = 0;
                 stoppedat[TEAM1] = stoppedat[TEAM2] = -1;
@@ -1228,7 +1228,7 @@ void A_ScoreboardMessage (edict_t *ent, edict_t *killer)
                                         game.clients[sorted[TEAM2][i]].pers.netname);
                         }
         
-                        len = strlen(string);
+                        len = (int)strlen(string);
                 }
         
                 // Print remaining players if we ran out of room...

@@ -951,7 +951,7 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
            )
         {
 //FB 6/3/99 - shotgun damage report stuff
-                                int playernum = targ - g_edicts;
+                                int playernum = (int)(targ - g_edicts);
 				playernum--;
 				if (playernum >= 0 &&
 					playernum <= game.maxclients - 1)

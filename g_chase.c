@@ -152,7 +152,7 @@ void UpdateChaseCam(edict_t *ent)
 
 void ChaseNext(edict_t *ent)
 {
-        int i;
+        intptr_t i;
         edict_t *e;
 
         if (!ent->client->chase_target)
@@ -181,7 +181,7 @@ void ChaseNext(edict_t *ent)
 
 void ChasePrev(edict_t *ent)
 {
-        int i;
+        intptr_t i;
         edict_t *e;
 
         if (!ent->client->chase_target)
@@ -210,7 +210,7 @@ void ChasePrev(edict_t *ent)
 
 void GetChaseTarget(edict_t *ent)
 {
-        int i, found, searched;
+        intptr_t i, found, searched;
         edict_t *e, *start_target;
 
         start_target = ent->client->resp.last_chase_target;

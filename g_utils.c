@@ -378,7 +378,7 @@ char *G_CopyString (char *in)
 {
         char    *out;
         
-        out = gi.TagMalloc (strlen(in)+1, TAG_LEVEL);
+        out = gi.TagMalloc ((int)strlen(in)+1, TAG_LEVEL);
         strcpy (out, in);
         return out;
 }
@@ -389,7 +389,7 @@ void G_InitEdict (edict_t *e)
         e->inuse = true;
         e->classname = "noclass";
         e->gravity = 1.0;
-        e->s.number = e - g_edicts;
+        e->s.number = (int)(e - g_edicts);
 }
 
 /*

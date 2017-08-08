@@ -55,7 +55,7 @@ void ReadConfigFile()
         while (fgets(buf, MAX_STR_LEN - 10, config_file) != NULL)
         {
                 int bs;
-                bs = strlen(buf);
+                bs = (int)strlen(buf);
                 while (buf[bs-1] == '\r' || buf[bs-1] == '\n')
                 {
                         buf[bs-1] = 0;
@@ -109,7 +109,7 @@ void ReadConfigFile()
                         }
                                 else if (!strcmp(reading_section, "maplist"))
                         {
-                                map_rotation[num_maps] = (char *)gi.TagMalloc(strlen(buf) + 1, TAG_GAME);
+                                map_rotation[num_maps] = (char *)gi.TagMalloc((int)strlen(buf) + 1, TAG_GAME);
                                 strcpy(map_rotation[num_maps], buf);
                                 num_maps++;
                         }
@@ -137,7 +137,7 @@ void ReadMOTDFile()
         motd_num_lines = 0;
         while (fgets(buf, 900, motd_file) != NULL)
         {
-                lbuf = strlen(buf);
+                lbuf = (int)strlen(buf);
                 while (buf[lbuf-1] == '\r' || buf[lbuf-1] == '\n')
                 {
                         buf[lbuf-1] = 0;
@@ -298,7 +298,7 @@ void PrintMOTD(edict_t *ent)
                         chars_on_line = 0;
                         for (mapnum = 0; mapnum < num_maps; mapnum++)
                         {
-                                len_mr = strlen(*(map_rotation + mapnum));
+                                len_mr = (int)strlen(*(map_rotation + mapnum));
                                 if ((chars_on_line + len_mr + 2) > 39)
                                 {
                                         strcat(msg_buf, "\n");
@@ -948,7 +948,7 @@ void GetNearbyTeammates(edict_t *self, char *buf)
                         !OnSameTeam(ent, self))
                         continue;
 
-                strncpy(nearby_teammates[nearby_teammates_num], ent->client->pers.netname, 15);
+                strncpy((char*)nearby_teammates[nearby_teammates_num], ent->client->pers.netname, 15);
                 nearby_teammates[nearby_teammates_num][15] = 0; // in case their name is 15 chars...
                 nearby_teammates_num++;
                 if (nearby_teammates_num >= 10)
@@ -965,26 +965,26 @@ void GetNearbyTeammates(edict_t *self, char *buf)
         {
                 if (l == 0)
                 {
-                        strcpy(buf, nearby_teammates[l]);
+                        strcpy(buf, (const char*)nearby_teammates[l]);
                 }
                         else
                 {
                         if (nearby_teammates_num == 2)
                         {
                                 strcat(buf, " and ");
-                                strcat(buf, nearby_teammates[l]);
+                                strcat(buf, (const char*)nearby_teammates[l]);
                         }
                                 else
                         {
                                 if (l == (nearby_teammates_num - 1))
                                 {
                                         strcat(buf, ", and ");
-                                        strcat(buf, nearby_teammates[l]);
+                                        strcat(buf, (const char*)nearby_teammates[l]);
                                 }
                                         else
                                 {
                                         strcat(buf, ", ");
-                                        strcat(buf, nearby_teammates[l]);
+                                        strcat(buf, (const char*)nearby_teammates[l]);
                                 }
                         }
                 }
@@ -1005,7 +1005,7 @@ void ParseSayText(edict_t *ent, char *text)
         char *p, *pbuf;
 
         p = text;
-        pbuf = buf;
+        pbuf = (char*)buf;
         *pbuf = 0;
 
         while (*p != 0)
@@ -1019,32 +1019,32 @@ void ParseSayText(edict_t *ent, char *text)
                         switch (*(p+1))
                         {
                                 case 'H':
-                                        GetHealth(ent, infobuf);
-                                        strcpy(pbuf, infobuf);
+                                        GetHealth(ent, (char*)infobuf);
+                                        strcpy(pbuf, (const char*)infobuf);
                                         pbuf = SeekBufEnd(pbuf);
                                         p += 2;
                                         continue;
                                 case 'A':
-                                        GetAmmo(ent, infobuf);
-                                        strcpy(pbuf, infobuf);
+                                        GetAmmo(ent, (char*)infobuf);
+                                        strcpy(pbuf, (const char*)infobuf);
                                         pbuf = SeekBufEnd(pbuf);
                                         p += 2;
                                         continue;
                                 case 'W':
-                                        GetWeaponName(ent, infobuf);
-                                        strcpy(pbuf, infobuf);
+                                        GetWeaponName(ent, (char*)infobuf);
+                                        strcpy(pbuf, (const char*)infobuf);
                                         pbuf = SeekBufEnd(pbuf);
                                         p += 2;
                                         continue;
                                 case 'I':
-                                        GetItemName(ent, infobuf);
-                                        strcpy(pbuf, infobuf);
+                                        GetItemName(ent, (char*)infobuf);
+                                        strcpy(pbuf, (const char*)infobuf);
                                         pbuf = SeekBufEnd(pbuf);
                                         p += 2;
                                         continue;
                                 case 'T':
-                                        GetNearbyTeammates(ent, infobuf);
-                                        strcpy(pbuf, infobuf);
+                                        GetNearbyTeammates(ent, (char*)infobuf);
+                                        strcpy(pbuf, (const char*)infobuf);
                                         pbuf = SeekBufEnd(pbuf);
                                         p += 2;
                                         continue;
@@ -1055,6 +1055,6 @@ void ParseSayText(edict_t *ent, char *text)
 
         *pbuf = 0;
 
-        strncpy(text, buf, 300);
+        strncpy(text, (const char*)buf, 300);
         text[300] = 0; // in case it's 300
 }

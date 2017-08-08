@@ -1617,7 +1617,7 @@ edict_t *SelectCoopSpawnPoint (edict_t *ent)
         edict_t *spot = NULL;
         char    *target;
 
-        index = ent->client - game.clients;
+        index = (int)(ent->client - game.clients);
 
         // player 0 starts in normal player spawn point
         if (!index)
@@ -1756,7 +1756,7 @@ void CopyToBodyQue (edict_t *ent)
 
         gi.unlinkentity (body);
         body->s = ent->s; 
-        body->s.number = body - g_edicts;
+        body->s.number = (int)(body - g_edicts);
 
         body->svflags = ent->svflags;
         VectorCopy (ent->mins, body->mins);
@@ -2084,7 +2084,7 @@ void PutClientInServer (edict_t *ent)
         // ranging doesn't count this client
         SelectSpawnPoint (ent, spawn_origin, spawn_angles);
 
-        index = ent-g_edicts-1;
+        index = (int)(ent-g_edicts-1);
         client = ent->client;
 
         // deathmatch wipes most client data every spawn
@@ -2203,7 +2203,7 @@ void PutClientInServer (edict_t *ent)
 
         // clear entity state values
         ent->s.effects = 0;
-        ent->s.skinnum = ent - g_edicts - 1;
+        ent->s.skinnum = (int)(ent - g_edicts - 1);
         ent->s.modelindex = 255;                // will use the skin specified model
         
         // zucc vwep
@@ -2354,7 +2354,7 @@ void ClientBeginDeathmatch (edict_t *ent)
                 {  //FB 5/31/99
                         // send effect
                         gi.WriteByte (svc_muzzleflash);
-                        gi.WriteShort (ent-g_edicts);
+                        gi.WriteShort ((int)(ent-g_edicts));
                         gi.WriteByte (MZ_LOGIN);
                         gi.multicast (ent->s.origin, MULTICAST_PVS);
                 }
@@ -2442,7 +2442,7 @@ void ClientBegin (edict_t *ent)
                         {
 //FIREBLADE
                                 gi.WriteByte (svc_muzzleflash);
-                                gi.WriteShort (ent-g_edicts);
+                                gi.WriteShort ((int)(ent-g_edicts));
                                 gi.WriteByte (MZ_LOGIN);
                                 gi.multicast (ent->s.origin, MULTICAST_PVS);
                         }
@@ -2490,7 +2490,7 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo)
 
         // set skin
         s = Info_ValueForKey (userinfo, "skin");
-        playernum = ent-g_edicts-1;
+        playernum = (int)(ent-g_edicts-1);
 
         // combine name and skin into a configstring
 //FIREBLADE
@@ -2670,7 +2670,7 @@ void ClientDisconnect (edict_t *ent)
         {  //FB 5/31/99
                 // send effect
                 gi.WriteByte (svc_muzzleflash);
-                gi.WriteShort (ent-g_edicts);
+                gi.WriteShort ((int)(ent-g_edicts));
                 gi.WriteByte (MZ_LOGOUT);
                 gi.multicast (ent->s.origin, MULTICAST_PVS);
         }
@@ -2682,7 +2682,7 @@ void ClientDisconnect (edict_t *ent)
         ent->classname = "disconnected";
         ent->client->pers.connected = false;
 
-        playernum = ent-g_edicts-1;
+        playernum = (int)(ent-g_edicts-1);
         gi.configstring (CS_PLAYERSKINS+playernum, "");
 
 //FIREBLADE

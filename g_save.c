@@ -260,8 +260,8 @@ void InitGame (void)
 void WriteField1 (FILE *f, field_t *field, byte *base)
 {
         void            *p;
-        int                     len;
-        int                     index;
+        size_t          len;
+        uintptr_t       index;
 
         p = (void *)(base + field->ofs);
         switch (field->type)
@@ -279,28 +279,28 @@ void WriteField1 (FILE *f, field_t *field, byte *base)
                         len = strlen(*(char **)p) + 1;
                 else
                         len = 0;
-                *(int *)p = len;
+                *(int *)p = (int)len;
                 break;
         case F_EDICT:
                 if ( *(edict_t **)p == NULL)
                         index = -1;
                 else
                         index = *(edict_t **)p - g_edicts;
-                *(int *)p = index;
+                *(int *)p = (int)index;
                 break;
         case F_CLIENT:
                 if ( *(gclient_t **)p == NULL)
                         index = -1;
                 else
                         index = *(gclient_t **)p - game.clients;
-                *(int *)p = index;
+                *(int *)p = (int)index;
                 break;
         case F_ITEM:
                 if ( *(edict_t **)p == NULL)
                         index = -1;
                 else
                         index = *(gitem_t **)p - itemlist;
-                *(int *)p = index;
+                *(int *)p = (int)index;
                 break;
 
         default:
@@ -320,7 +320,7 @@ void WriteField2 (FILE *f, field_t *field, byte *base)
         case F_GSTRING:
                 if ( *(char **)p )
                 {
-                        len = strlen(*(char **)p) + 1;
+                        len = (int)strlen(*(char **)p) + 1;
                         fwrite (*(char **)p, len, 1, f);
                 }
                 break;
