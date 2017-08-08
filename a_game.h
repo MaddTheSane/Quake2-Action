@@ -15,8 +15,8 @@ extern int num_maps, cur_map;
 extern char *tnames[];
 extern int *took_damage;
 
-void ReadConfigFile();
-void ReadMOTDFile();
+void ReadConfigFile(void);
+void ReadMOTDFile(void);
 void PrintMOTD(edict_t *);
 void stuffcmd(edict_t *, char *);
 int KickDoor( trace_t *tr_old, edict_t *ent, vec3_t forward );

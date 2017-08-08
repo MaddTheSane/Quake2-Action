@@ -46,4 +46,4 @@ void Cmd_Say_partner_f(edict_t *);
 void Cmd_Partner_f(edict_t *);
 void Cmd_Deny_f(edict_t *);
 void Cmd_Unpartner_f(edict_t *);
-void PrecacheRadioSounds();
+void PrecacheRadioSounds(void);

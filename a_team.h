@@ -45,15 +45,15 @@ qboolean StartClient(edict_t *ent);
 void AssignSkin(edict_t *, char *);
 void TallyEndOfLevelTeamScores(void);
 void CheckForUnevenTeams(void);
-void SetupTeamSpawnPoints();
-void GetSpawnPoints();
-void CleanBodies(); // from p_client.c, removes all current dead bodies from map
+void SetupTeamSpawnPoints(void);
+void GetSpawnPoints(void);
+void CleanBodies(void); // from p_client.c, removes all current dead bodies from map
 void LeaveTeam(edict_t *);
 int newrand(int top);
-void InitTransparentList();
+void InitTransparentList(void);
 void AddToTransparentList(edict_t *);
 void RemoveFromTransparentList(edict_t *);
-void PrintTransparentList();
+void PrintTransparentList(void);
 
 typedef struct spawn_distances_s
 {

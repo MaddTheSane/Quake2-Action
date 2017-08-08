@@ -3299,7 +3299,7 @@ void M4_Fire(edict_t *ent)
                 
                 //Display the yellow muzzleflash light effect
                 gi.WriteByte (svc_muzzleflash);
-                gi.WriteShort (ent-g_edicts);
+                gi.WriteShort ((int)(ent-g_edicts));
                 //If not silenced, play a shot sound for everyone else
                 gi.WriteByte (MZ_MACHINEGUN | is_silenced);
                 gi.multicast (ent->s.origin, MULTICAST_PVS);
@@ -3319,7 +3319,7 @@ void Weapon_M4 (edict_t *ent)
 }
 
 
-void InitShotgunDamageReport();
+void InitShotgunDamageReport(void);
 void ProduceShotgunDamageReport(edict_t *);
 
 void M3_Fire (edict_t *ent)
@@ -3384,7 +3384,7 @@ void M3_Fire (edict_t *ent)
         gi.sound(ent, CHAN_WEAPON, gi.soundindex("weapons/shotgf1b.wav"), 1, ATTN_NORM, 0);
         // send muzzle flash
         gi.WriteByte (svc_muzzleflash);
-        gi.WriteShort (ent-g_edicts);
+        gi.WriteShort ((int)(ent-g_edicts));
         gi.WriteByte (MZ_SHOTGUN | is_silenced);
         gi.multicast (ent->s.origin, MULTICAST_PVS);
                 

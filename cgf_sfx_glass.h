@@ -35,17 +35,17 @@ typedef struct edict_s edict_t;
 //
 //
 
-void CGF_SFX_InstallGlassSupport();
+void CGF_SFX_InstallGlassSupport(void);
 // registers cvar breakableglass (default 0)
 // registers cvar glassfragmentlimit (default 30)
 
 
-void CGF_SFX_RebuildAllBrokenGlass();
+void CGF_SFX_RebuildAllBrokenGlass(void);
 // upon starting a new team play game, reconstruct any
 // broken glass because we like to break it again
 
 
-int  CGF_SFX_IsBreakableGlassEnabled();
+int  CGF_SFX_IsBreakableGlassEnabled(void);
 // returns whether breakable glass is enabled (cvar breakableglass)
 
 
