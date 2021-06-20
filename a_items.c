@@ -18,7 +18,8 @@ char *tnames[] = {
 };
 
 
-void SpecThink(edict_t *spec);
+static void SpecThink(edict_t *spec);
+static void SpawnSpecs(edict_t *ent);
 
 
 static edict_t *FindSpecSpawn(void)

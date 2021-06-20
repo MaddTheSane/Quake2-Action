@@ -7,13 +7,13 @@
 #include "g_local.h"
 #include "cgf_sfx_glass.h"
 
-qboolean team_game_going = 0;   // is a team game going right now?
-qboolean team_round_going = 0;  // is an actual round of a team game going right now?
-int team_round_countdown = 0;   // countdown variable for start of a round
-int rulecheckfrequency = 0;     // accumulator variable for checking rules every 1.5 secs
-int lights_camera_action = 0;   // countdown variable for "lights...camera...action!" 
-int holding_on_tie_check = 0;   // when a team "wins", countdown for a bit and wait...
-int current_round_length = 0;   // frames that the current team round has lasted
+qboolean team_game_going = 0;   //!< is a team game going right now?
+qboolean team_round_going = 0;  //!< is an actual round of a team game going right now?
+int team_round_countdown = 0;   //!< countdown variable for start of a round
+static int rulecheckfrequency = 0;     //!< accumulator variable for checking rules every 1.5 secs
+int lights_camera_action = 0;   //!< countdown variable for "lights...camera...action!"
+int holding_on_tie_check = 0;   //!< when a team "wins", countdown for a bit and wait...
+static int current_round_length = 0;   //!< frames that the current team round has lasted
 
 int team1_score = 0;
 int team2_score = 0;
@@ -22,18 +22,17 @@ int team2_total = 0;
 
 #define MAX_SPAWNS 1000 // max DM spawn points supported
 
-edict_t *potential_spawns[MAX_SPAWNS];  
-int num_potential_spawns;
-edict_t *teamplay_spawns[MAX_TEAMS];
-trace_t trace_t_temp;  // used by our trace replace macro in ax_team.h
+static edict_t *potential_spawns[MAX_SPAWNS];
+static int num_potential_spawns;
+static edict_t *teamplay_spawns[MAX_TEAMS];
+trace_t trace_t_temp;  //!< used by our trace replace macro in ax_team.h
 
-int num_teams = 2;              // teams in current game, fixed at 2 for now...
+int num_teams = 2;              //!< teams in current game, fixed at 2 for now...
 
 transparent_list_t *transparent_list = NULL;
 
 
-void CreditsMenu(edict_t *ent, pmenu_t *p);
-
+static void CreditsMenu(edict_t *ent, pmenu_t *p);
 static qboolean BothTeamsHavePlayers(void);
 static void CleanLevel(void);
 static int CheckForWinner(void);
@@ -43,6 +42,24 @@ static void StartRound(void);
 static void StartLCA(void);
 static void ContinueLCA(void);
 static void MakeAllLivePlayersObservers(void);
+static void SelectWeapon2(edict_t *ent, pmenu_t *p);
+static void SelectWeapon3(edict_t *ent, pmenu_t *p);
+static void SelectWeapon4(edict_t *ent, pmenu_t *p);
+static void SelectWeapon5(edict_t *ent, pmenu_t *p);
+static void SelectWeapon6(edict_t *ent, pmenu_t *p);
+static void SelectWeapon9(edict_t *ent, pmenu_t *p);
+static void SelectItem1(edict_t *ent, pmenu_t *p);
+static void SelectItem2(edict_t *ent, pmenu_t *p);
+static void SelectItem3(edict_t *ent, pmenu_t *p);
+static void SelectItem4(edict_t *ent, pmenu_t *p);
+static void SelectItem5(edict_t *ent, pmenu_t *p);
+static void CreditsReturnToMain(edict_t *ent, pmenu_t *p);
+static void ReprintMOTD(edict_t *ent, pmenu_t *p);
+static char *TeamName(int team);
+static float SpawnPointDistance(edict_t *spot1, edict_t *spot2);
+static int compare_spawn_distances(const void *sd1, const void *sd2);
+static void SelectRandomTeamplaySpawnPoint(int team, qboolean teams_assigned[]);
+static void SelectFarTeamplaySpawnPoint(int team, qboolean teams_assigned[]);
 
 
 void InitTransparentList()
@@ -1402,7 +1419,7 @@ edict_t *SelectTeamplaySpawnPoint(edict_t *ent)
 }
 
 // SpawnPointDistance: 
-// Returns the distance between two spawn points (or any entities, actually...)
+//! Returns the distance between two spawn points (or any entities, actually...)
 float SpawnPointDistance(edict_t *spot1, edict_t *spot2)
 {
         vec3_t v;
@@ -1411,7 +1428,7 @@ float SpawnPointDistance(edict_t *spot1, edict_t *spot2)
 }
 
 // GetSpawnPoints:
-// Put the spawn points into our potential_spawns array so we can work with them easily.
+//! Put the spawn points into our potential_spawns array so we can work with them easily.
 void GetSpawnPoints()
 {
         edict_t *spot;
@@ -1436,7 +1453,7 @@ int newrand(int top)
         return (int)(random() * top);
 }
 
-// compare_spawn_distances is used by the qsort() call
+//! compare_spawn_distances is used by the qsort() call
 int compare_spawn_distances(const void *sd1, const void *sd2)
 {
         if (((spawn_distances_t *)sd1)->distance < 

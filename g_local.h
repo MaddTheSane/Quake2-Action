@@ -1319,7 +1319,7 @@ void ShowGun(edict_t *ent);
 void SetupSpecSpawn(void);
 void RespawnSpec(edict_t *ent);
 void Drop_Spec(edict_t *ent, gitem_t *item);
-void SpecThink(edict_t *spec);
+//void SpecThink(edict_t *spec);
 void DeadDropSpec(edict_t *ent);
 
 void temp_think_specweap( edict_t* ent ); // p_weapons.c

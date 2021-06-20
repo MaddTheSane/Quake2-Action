@@ -6,7 +6,7 @@
 #include <tgmath.h>
 #endif
 
-void Add_TeamWound( edict_t *attacker, edict_t *victim, int mod);
+extern void Add_TeamWound( edict_t *attacker, edict_t *victim, int mod);
 
 /*
 ============

@@ -21,7 +21,7 @@
 extern void door_use (edict_t *self, edict_t *other, edict_t *activator);
 
 // needed for KickDoor
-void VectorRotate(vec3_t in, vec3_t angles, vec3_t out) 
+static void VectorRotate(vec3_t in, vec3_t angles, vec3_t out) 
 {
 	float cv, sv, angle, tv;
 	

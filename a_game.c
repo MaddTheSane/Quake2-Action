@@ -24,6 +24,18 @@ int num_maps, cur_map;
 char motd_lines[MAX_TOTAL_MOTD_LINES][70];
 int motd_num_lines;
 
+static void BlooderDie(edict_t *self);
+static void BlooderTouch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf);
+static void ShellTouch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf);
+static void ShellDie(edict_t *self);
+static void DecalDie(edict_t *self);
+static void SplatDie(edict_t *self);
+static void GetWeaponName(edict_t *ent, char *buf);
+static void GetItemName(edict_t *ent, char *buf);
+static void GetHealth(edict_t *ent, char *buf);
+static void GetAmmo(edict_t *ent, char *buf);
+static void GetNearbyTeammates(edict_t *self, char *buf);
+
 /*
  * ReadConfigFile()
  * Config file format is backwards compatible with Action's, but doesn't need 
@@ -352,7 +364,7 @@ void PrintMOTD(edict_t *ent)
         gi.centerprintf(ent, msg_buf);
 }
 
-// stuffcmd: forces a player to execute a command.
+//! stuffcmd: forces a player to execute a command.
 void stuffcmd(edict_t *ent, char *c)
 {
         gi.WriteByte(svc_stufftext);
@@ -992,7 +1004,7 @@ void GetNearbyTeammates(edict_t *self, char *buf)
         }
 }
 
-char *SeekBufEnd(char *buf)
+static char *SeekBufEnd(char *buf)
 {
         while (*buf != 0)
                 buf++;

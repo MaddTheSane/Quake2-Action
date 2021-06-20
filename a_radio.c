@@ -8,6 +8,17 @@
 
 void Cmd_Say_f (edict_t *ent, qboolean team, qboolean arg0, qboolean partner_msg);
 
+static void PrecacheRadioMsgSet(radio_msg_t *msgs, char *base_path);
+static void DeleteFirstRadioQueueEntry(edict_t *ent);
+static void DeleteRadioQueueEntry(edict_t *ent, int entry_num);
+static int TotalNonClickMessagesInQueue(edict_t *ent);
+static void AppendRadioMsgToQueue(edict_t *ent, char *msg, int len, int click, edict_t *from_player);
+static void InsertRadioMsgInQueueBeforeClick(edict_t *ent, char *msg, int len, edict_t *from_player);
+static void AddRadioMsg(edict_t *ent, char *msg, int len, edict_t *from_player);
+static void RadioBroadcast(edict_t *ent, int partner, char *msg);
+static edict_t *DetermineViewedTeammate(edict_t *ent);
+
+
 // Each of the possible radio messages and their length
 
 radio_msg_t male_radio_msgs[] = {
@@ -482,8 +493,8 @@ void Cmd_Channel_f(edict_t *ent)
         }
 }
 
-// DetermineViewedTeammate: determine the current player you're viewing (only looks for live teammates)
-// Modified from SetIDView (which was used from Zoid's CTF)
+//! DetermineViewedTeammate: determine the current player you're viewing (only looks for live teammates)
+//! Modified from SetIDView (which was used from Zoid's CTF)
 edict_t *DetermineViewedTeammate(edict_t *ent)
 {
         vec3_t  forward, dir;

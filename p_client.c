@@ -5,7 +5,7 @@
 void ClientUserinfoChanged (edict_t *ent, char *userinfo);
 void ClientDisconnect(edict_t *ent);
 void SP_misc_teleporter_dest (edict_t *ent);
-void CopyToBodyQue (edict_t *ent);
+static void CopyToBodyQue (edict_t *ent);
 
 void Add_Frag( edict_t *ent )
 {
@@ -106,7 +106,7 @@ void Add_TeamWound( edict_t *attacker, edict_t *victim, int mod)
 	}
 	else
 	{
-		if (attacker->client->ipaddr)
+		if (attacker->client->ipaddr[0])
 		{
 			if (Ban_TeamKiller(attacker, (int)twbanrounds->value))
 			{
@@ -167,7 +167,7 @@ void Add_TeamKill( edict_t *attacker )
 	else
 	{
 		// They've killed too many teammates this game - kick 'em for a while
-		if (attacker->client->ipaddr)
+		if (attacker->client->ipaddr[0])
 		{
 			if (Ban_TeamKiller(attacker, (int)tkbanrounds->value))
 			{
@@ -1513,7 +1513,7 @@ go to a random point, but NOT the two points closest
 to other players
 ================
 */
-edict_t *SelectRandomDeathmatchSpawnPoint (void)
+static edict_t *SelectRandomDeathmatchSpawnPoint (void)
 {
         edict_t *spot, *spot1, *spot2;
         int             count = 0;
@@ -1569,7 +1569,7 @@ SelectFarthestDeathmatchSpawnPoint
 
 ================
 */
-edict_t *SelectFarthestDeathmatchSpawnPoint (void)
+static edict_t *SelectFarthestDeathmatchSpawnPoint (void)
 {
         edict_t *bestspot;
         float   bestdistance, bestplayerdistance;
@@ -1602,7 +1602,7 @@ edict_t *SelectFarthestDeathmatchSpawnPoint (void)
         return spot;
 }
 
-edict_t *SelectDeathmatchSpawnPoint (void)
+static edict_t *SelectDeathmatchSpawnPoint (void)
 {
         if ( (int)(dmflags->value) & DF_SPAWN_FARTHEST)
                 return SelectFarthestDeathmatchSpawnPoint ();
@@ -1611,7 +1611,7 @@ edict_t *SelectDeathmatchSpawnPoint (void)
 }
 
 
-edict_t *SelectCoopSpawnPoint (edict_t *ent)
+static edict_t *SelectCoopSpawnPoint (edict_t *ent)
 {
         int             index;
         edict_t *spot = NULL;
@@ -1655,7 +1655,7 @@ SelectSpawnPoint
 Chooses a player start, deathmatch start, coop start, etc
 ============
 */
-void    SelectSpawnPoint (edict_t *ent, vec3_t origin, vec3_t angles)
+static void SelectSpawnPoint (edict_t *ent, vec3_t origin, vec3_t angles)
 {
         edict_t *spot = NULL;
 
@@ -1726,7 +1726,7 @@ void InitBodyQue (void)
         }
 }
 
-void body_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point)
+static void body_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point)
 {
 /*      int     n;*/
 
@@ -1836,7 +1836,7 @@ void respawn (edict_t *self)
 
 //==============================================================
 
-void AllWeapons( edict_t *ent )
+static void AllWeapons( edict_t *ent )
 {
 
         int i;
@@ -1881,7 +1881,7 @@ void AllWeapons( edict_t *ent )
 
 }
 
-void AllItems( edict_t *ent )
+static void AllItems( edict_t *ent )
 {
         edict_t etemp;
         int i;
@@ -1911,7 +1911,7 @@ void AllItems( edict_t *ent )
 // equips a client with item/weapon in teamplay
 
 
-void EquipClient( edict_t *ent )
+static void EquipClient( edict_t *ent )
 {
         gclient_t *client;
         gitem_t* item;
@@ -2126,7 +2126,7 @@ void PutClientInServer (edict_t *ent)
 	save_team_wounds = client->team_wounds;
 	save_team_kills = client->team_kills;
 	
-	if (client->ipaddr)
+	if (client->ipaddr[0])
 		strncpy(save_ipaddr, client->ipaddr, sizeof(save_ipaddr)-1);
 //FF
 
@@ -2136,7 +2136,7 @@ void PutClientInServer (edict_t *ent)
 	client->team_wounds = save_team_wounds;
 	client->team_kills = save_team_kills;
 		
-	if (save_ipaddr && client->ipaddr)
+	if (save_ipaddr && client->ipaddr[0])
 		strncpy(client->ipaddr, save_ipaddr, sizeof(client->ipaddr));
 //FF
 
@@ -2699,8 +2699,8 @@ void ClientDisconnect (edict_t *ent)
 
 edict_t *pm_passent;
 
-// pmove doesn't need to know about passent and contentmask
-trace_t PM_trace (vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end)
+//! pmove doesn't need to know about passent and contentmask
+static trace_t PM_trace (vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end)
 {
         if (pm_passent->health > 0)
                 return gi.trace (start, mins, maxs, end, pm_passent, MASK_PLAYERSOLID);
@@ -2708,7 +2708,7 @@ trace_t PM_trace (vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end)
                 return gi.trace (start, mins, maxs, end, pm_passent, MASK_DEADSOLID);
 }
 
-unsigned CheckBlock (void *b, int c)
+static unsigned CheckBlock (void *b, int c)
 {
         int     v,i;
         v = 0;
