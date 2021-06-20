@@ -34,6 +34,16 @@ transparent_list_t *transparent_list = NULL;
 
 void CreditsMenu(edict_t *ent, pmenu_t *p);
 
+static qboolean BothTeamsHavePlayers(void);
+static void CleanLevel(void);
+static int CheckForWinner(void);
+static int CheckForForcedWinner(void);
+static void SpawnPlayers(void);
+static void StartRound(void);
+static void StartLCA(void);
+static void ContinueLCA(void);
+static void MakeAllLivePlayersObservers(void);
+
 
 void InitTransparentList()
 {
