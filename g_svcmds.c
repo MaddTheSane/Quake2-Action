@@ -362,7 +362,7 @@ qboolean Ban_TeamKiller ( edict_t *ent, int rounds )
 {
 	int i = 0;
 
-	if (!ent || !ent->client || !ent->client->ipaddr)
+	if (!ent || !ent->client || !ent->client->ipaddr[0])
 	{
 		gi.cprintf (NULL, PRINT_HIGH, "Unable to determine client->ipaddr for edict\n");
 		return false;

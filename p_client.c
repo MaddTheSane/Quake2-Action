@@ -2136,7 +2136,7 @@ void PutClientInServer (edict_t *ent)
 	client->team_wounds = save_team_wounds;
 	client->team_kills = save_team_kills;
 		
-	if (save_ipaddr && client->ipaddr[0])
+	if (save_ipaddr[0] && client->ipaddr[0])
 		strncpy(client->ipaddr, save_ipaddr, sizeof(client->ipaddr));
 //FF
 
