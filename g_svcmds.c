@@ -1,6 +1,6 @@
 #include "g_local.h"
 
-void SVCmd_ReloadMOTD_f()
+void SVCmd_ReloadMOTD_f(void)
 {
         ReadMOTDFile();
         gi.cprintf(NULL, PRINT_HIGH, "MOTD reloaded.\n");
