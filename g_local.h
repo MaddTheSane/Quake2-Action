@@ -17,7 +17,7 @@
 
 #if defined (__APPLE__) || defined (MACOSX)
 #define	stricmp		strcasecmp
-#endif /* __APPLE__ ||ÊMACOSX */
+#endif /* __APPLE__ || MACOSX */
 
 // the "gameversion" client command will print this plus compile date
 #define GAMEVERSION     "action"

@@ -322,7 +322,7 @@ void RadioBroadcast(edict_t *ent, int partner, char *msg)
         int j, i, msg_len = 0, found;
 #else
         int j, i, msg_len, found;
-#endif /* __APPLE__ ||ÊMACOSX */
+#endif /* __APPLE__ || MACOSX */
         edict_t *other;
         radio_msg_t *radio_msgs;
         char msg_fullpath[2048], *base_path;

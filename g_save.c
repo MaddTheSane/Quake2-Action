@@ -327,7 +327,7 @@ void WriteField2 (FILE *f, field_t *field, byte *base)
 #if defined (__APPLE__) || defined (MACOSX)
         default:
                 break;
-#endif /* __APPLE__ ||ÊMACOSX */
+#endif /* __APPLE__ || MACOSX */
         }
 }
 

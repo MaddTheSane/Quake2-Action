@@ -460,7 +460,7 @@ void ED_ParseField (char *key, char *value, edict_t *ent)
 #if defined (__APPLE__) || defined (MACOSX)
                         default:
                                 break;
-#endif /* __APPLE__ ||ÊMACOSX */
+#endif /* __APPLE__ || MACOSX */
                         }
                         return;
                 }
